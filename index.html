@@ -1,17 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <style>
+    #startBtn {
+      font-size: 24px;
+      padding: 15px 30px;
+    }
+    #reader {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Scan ISBN</h2>
+
 <button id="startBtn">📚 Scan ISBN</button>
 
-<div id="reader" style="display:none;"></div>
-
-<style>
-#startBtn {
-    font-size: 24px;
-    padding: 15px 30px;
-    border-radius: 10px;
-}
-</style>
+<div id="reader"></div>
 
 <script>
-document.getElementById("startBtn").onclick = function() {
+document.getElementById("startBtn").addEventListener("click", function () {
     document.getElementById("reader").style.display = "block";
 
     const scanner = new Html5QrcodeScanner(
@@ -19,12 +29,11 @@ document.getElementById("startBtn").onclick = function() {
         { fps: 10, qrbox: 250 }
     );
 
-    scanner.render((decodedText) => {
-        const formUrl =
-            "https://docs.google.com/forms/d/e/1FAIpQLSdH-zvSZx9wssgLF1pcBkKyxDoYMCcDwG5SH2_qCmC0ft_xeQ/viewform?usp=pp_url&entry.616904733="
-            + encodeURIComponent(decodedText);
-
-        window.location.href = formUrl;
+    scanner.render(function(decodedText) {
+        alert("Scanned: " + decodedText);
     });
-};
+});
 </script>
+
+</body>
+</html>
